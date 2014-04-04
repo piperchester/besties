@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
+  <!-- Serving up the hottest jQury -->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
@@ -16,9 +19,6 @@
 
   <!-- Latest compiled and minified JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-  <!-- Serving up the hottest jQury -->
-  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
   <title>Besties</title>
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,11 +39,9 @@
       xfbml: true  // parse XFBML
     });
 
-    $('#myModal').modal('show');
-
     FB.getLoginStatus(function (response) {
       if (response.status === 'connected') {
-        //document.getElementById('closeModal').click();
+        document.getElementById('closeModal').click();
       }
       else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook,
