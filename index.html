@@ -75,47 +75,15 @@
             ref.parentNode.insertBefore(js, ref);
         }(document));
 
-        // Posting a string directly to the user's feed
-        function postStatus() {
-            var status = $('#fbStatusForm').val();
-
-            // Post the status from the status form to the Facebook, alert if successful
-            FB.api('/me/feed', 'post', { message: status }, function (response) {
-                if (!response || response.error) {
-                    alert('Hm. Something went wrong. Try a different status.');
-                } else {
-                    alert("Successful post! Here's the post ID: " + response.id);
-                }
-            });
-        }
-
         // Presents the FB add Friend dialog
         function scrapeFriends() {
             var friendID = $('#fbFriendForm').val();
-            // FB.ui({
-            //     method: 'friends',
-            //     id: friendID,
-            // });
 
             FB.api('me?fields=friendlists.list_type(close_friends).fields(members.fields(name))', function (response) {
                 if (!response || response.error) {
                     alert('Hmm - something bad happened. Try a different or shorter URL.');
                 } else {
                     alert("Huzzah!" + response);
-                }
-            });
-        }
-
-        // Caption and post photo!
-        function postPhoto() {
-            var imageURL = $('#fbPhotoForm').val();
-            var body = $('#fbPhotoMessageForm').val();
-            // Post the photo from the form to Facebook
-            FB.api('/me/photos', 'post', { message: body, url: imageURL }, function (response) {
-                if (!response || response.error) {
-                    alert('Hmm - something bad happened. Try a different or shorter URL.');
-                } else {
-                    alert("Huzzah! The image has been uploaded!");
                 }
             });
         }
