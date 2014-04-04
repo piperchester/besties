@@ -1,120 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.1/lumen/bootstrap.min.css">
 
-    <link rel="stylesheet" href="css/jumbotron-narrow.css">
+  <link rel="stylesheet" href="css/jumbotron-narrow.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-    <!-- Serving up the hottest jQury -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- Serving up the hottest jQury -->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 
-    <title>Besties</title>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
+  <title>Besties</title>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
 
-    <div id="fb-root"></div>
-      <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '1465893096973391',
-                status: true, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                xfbml: true  // parse XFBML
-            });
+  <div id="fb-root"></div>
+  <script>
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: '1465893096973391',
+      status: true, // check login status
+      cookie: true, // enable cookies to allow the server to access the session
+      xfbml: true  // parse XFBML
+    });
 
-            $('#myModal').modal('show');
+    $('#myModal').modal('show');
 
-            FB.getLoginStatus(function (response) {
-                if (response.status === 'connected') {
-                    //document.getElementById('closeModal').click();
-                }
-               else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook,
-                    // but has not authenticated your app
-                    $('#myModal').modal('show');
-                } else {
-                    // the user isn't logged in to Facebook.
-                    $('#myModal').modal('show');
+    FB.getLoginStatus(function (response) {
+      if (response.status === 'connected') {
+        //document.getElementById('closeModal').click();
+      }
+      else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook,
+        // but has not authenticated your app
+        $('#myModal').modal('show');
+      } else {
+        // the user isn't logged in to Facebook.
+        $('#myModal').modal('show');
 
-                }
-            });
+      }
+    });
 
-            FB.Event.subscribe('auth.authResponseChange', function (response) {
-                // Here we specify what we do with the response anytime this event occurs.
-                if (responfeedse.status === 'connected') {
-                    document.getElementById('closeModal').click();
-                } else if (response.status === 'not_authorized') {
-                    $('#myModal').modal('show');
-                } else {
-                    $('#myModal').modal('show');
-                }
-            });
-        };
+    FB.Event.subscribe('auth.authResponseChange', function (response) {
+      // Here we specify what we do with the response anytime this event occurs.
+      if (responfeedse.status === 'connected') {
+        document.getElementById('closeModal').click();
+      } else if (response.status === 'not_authorized') {
+        $('#myModal').modal('show');
+      } else {
+        $('#myModal').modal('show');
+      }
+    });
+  };
 
-        // Load the SDK asynchronously
-        (function (d) {
-            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement('script'); js.id = id; js.async = true;
-            js.src = "//connect.facebook.net/en_US/all.js";
-            ref.parentNode.insertBefore(js, ref);
-        }(document));
+  // Load the SDK asynchronously
+  (function (d) {
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) { return; }
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+  }(document));
 
-        // Presents the FB add Friend dialog
-        function scrapeFriends() {
-            var friendID = $('#fbFriendForm').val();
+  // Presents the FB add Friend dialog
+  function scrapeFriends() {
+    var friendID = $('#fbFriendForm').val();
 
-            FB.api('me?fields=friendlists.list_type(close_friends).fields(members.fields(name))', function (response) {
-                if (!response || response.error) {
-                    alert('Hmm - something bad happened. Try a different or shorter URL.');
-                } else {
-                    alert("Huzzah!" + response);
-                }
-            });
-        }
-    </script>
-    <div class="modal fade" id="myModal" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
-                    <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
-                </div>
-                <div class="modal-body">
-                    <p style="text-align:center">We can't show you your besty without Facebook authentication.</p><br />
-                    <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="xlarge" data-auto-logout-link="false" scope="publish_actions, read_friendlists"></fb:login-button></div>
-                </div>
-            </div>
+    FB.api('me?fields=friendlists.list_type(close_friends).fields(members.fields(name))', function (response) {
+      if (!response || response.error) {
+        alert('Hmm - something bad happened. Try a different or shorter URL.');
+      } else {
+        alert("Huzzah!" + response);
+      }
+    });
+  }
+  </script>
+  <div class="modal fade" id="myModal" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
+          <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
         </div>
+        <div class="modal-body">
+          <p style="text-align:center">We can't show you your besty without Facebook authentication.</p><br />
+          <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="xlarge" data-auto-logout-link="false" scope="publish_actions, read_friendlists"></fb:login-button></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="container">
-      <div class="jumbotron">
-        <h1>Besties</h1>
-        <p class="lead">Who are your closest friends on Facebook?</p>
-        <input id="fbFriendForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; height: 45px;" onkeypress="if(event.keyCode == 13)scrapeFriends()">
-        <button id="fbScrapeButton" type="button" class="btn btn-primary btn-lg active" style="margin-top: 10px;" onclick="scrapeFriends()">Scrape</button>
-      </div>
-      <div class="footer">
-        <p style="text-align:center">Hastily hacked together in Rochester, NY. Sorry about the bug infestation.</p>
-      </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Besties</h1>
+      <p class="lead">Who are your closest friends on Facebook?</p>
+      <input id="fbFriendForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; height: 45px;" onkeypress="if(event.keyCode == 13)scrapeFriends()">
+      <button id="fbScrapeButton" type="button" class="btn btn-primary btn-lg active" style="margin-top: 10px;" onclick="scrapeFriends()">Scrape</button>
     </div>
-  </body>
+    <div class="footer">
+      <p style="text-align:center">Hastily hacked together in Rochester, NY. Sorry about the bug infestation.</p>
+    </div>
+  </div>
+</body>
 </html>
