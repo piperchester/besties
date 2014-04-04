@@ -56,7 +56,7 @@
 
     FB.Event.subscribe('auth.authResponseChange', function (response) {
       // Here we specify what we do with the response anytime this event occurs.
-      if (responfeedse.status === 'connected') {
+      if (response.status === 'connected') {
         document.getElementById('closeModal').click();
       } else if (response.status === 'not_authorized') {
         $('#myModal').modal('show');
