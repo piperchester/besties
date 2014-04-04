@@ -16,9 +16,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <title>Besties</title>
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -27,34 +24,8 @@
   </head>
   <body>
 
-    <div class="modal fade" id="myModal" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
-                    <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
-                </div>
-                <div class="modal-body">
-                    <p style="text-align:center">We can't show you your besty without Facebook authentication.</p><br />
-                    <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="xlarge" data-auto-logout-link="false" scope="publish_actions"></fb:login-button></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-      <div class="jumbotron">
-        <h1>Besties</h1>
-        <p class="lead">Who are your closest friends on Facebook? By Authenticating your Facebook ID and we can find out!</p>
-        <input id="fbStatusForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; margin:0 10px 0 40px; height: 45px; width:60%; float: left;" onkeypress="if(event.keyCode == 13)postStatus()">
-        <p><a class="btn btn-lg btn-primary" href="#" role="button" onclick="addFriend()">Scrape</a></p>
-      </div>
-      <div class="footer">
-        <p style="text-align:center">Lovingly built by Nate Perry and Piper Chester in Rochester, NY</p>
-      </div>
-    </div>
     <div id="fb-root"></div>
-	    <script>
+      <script>
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '1465893096973391',
@@ -62,11 +33,6 @@
                 cookie: true, // enable cookies to allow the server to access the session
                 xfbml: true  // parse XFBML
             });
-
-            // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
-            // for any authentication related change, such as login, logout or session refresh. This means that
-            // whenever someone who was previously logged out tries to log in again, the correct case below
-            // will be handled.
 
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
@@ -87,30 +53,11 @@
             FB.Event.subscribe('auth.authResponseChange', function (response) {
                 // Here we specify what we do with the response anytime this event occurs.
                 if (responfeedse.status === 'connected') {
-                    // The response object is returned with a status field that lets the app know the current
-                    // login status of the person. In this case, we're handling the situation where they
-                    // have logged in to the app.
                     document.getElementById('closeModal').click();
-
                 } else if (response.status === 'not_authorized') {
-                    // In this case, the person is logged into Facebook, but not into the app, so we call
-                    // FB.login() to prompt them to do so.
-                    // In real-life usage, you wouldn't want to immediately prompt someone to login
-                    // like this, for two reasons:
-                    // (1) JavaScript created popup windows are blocked by most browsers unless they
-                    // result from direct interaction from people using the app (such as a mouse click)
-                    // (2) it is a bad experience to be continually prompted to login upon page load.
                     $('#myModal').modal('show');
-
-
                 } else {
-                    // In this case, the person is not logged into Facebook, so we call the login()
-                    // function to prompt them to do so. Note that at this stage there is no indication
-                    // of whether they are logged into the app. If they aren't then they'll see the Login
-                    // dialog right after they log in to Facebook.
-                    // The same caveats as above apply to the FB.login() call here.
                     $('#myModal').modal('show');
-
                 }
             });
         };
@@ -161,5 +108,32 @@
             });
         }
     </script>
+
+    <div class="modal fade" id="myModal" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
+                    <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align:center">We can't show you your besty without Facebook authentication.</p><br />
+                    <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="xlarge" data-auto-logout-link="false" scope="publish_actions"></fb:login-button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Besties</h1>
+        <p class="lead">Who are your closest friends on Facebook? By Authenticating your Facebook ID and we can find out!</p>
+        <input id="fbStatusForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; margin:0 10px 0 40px; height: 45px; width:60%; float: left;" onkeypress="if(event.keyCode == 13)postStatus()">
+        <p><a class="btn btn-lg btn-primary" href="#" role="button" onclick="addFriend()">Scrape</a></p>
+      </div>
+      <div class="footer">
+        <p style="text-align:center">Lovingly built by Nate Perry and Piper Chester in Rochester, NY</p>
+      </div>
+    </div>
   </body>
 </html>
