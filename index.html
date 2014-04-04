@@ -25,8 +25,23 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
   <body>
+
+    <div class="modal fade" id="myModal" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
+                    <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align:center">We can't show you your besty without Facebook authentication.</p><br />
+                    <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="xlarge" data-auto-logout-link="false" scope="publish_actions"></fb:login-button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
       <div class="jumbotron">
         <h1>Besties</h1>
