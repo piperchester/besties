@@ -41,15 +41,15 @@
 
     FB.getLoginStatus(function (response) {
       if (response.status === 'connected') {
-        document.getElementById('closeModal').click();
+        $('#authModal').modal('hide');
       }
       else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook,
         // but has not authenticated your app
-        $('#myModal').modal('show');
+        $('#authModal').modal('show');
       } else {
         // the user isn't logged in to Facebook.
-        $('#myModal').modal('show');
+        $('#authModal').modal('show');
 
       }
     });
@@ -57,11 +57,11 @@
     FB.Event.subscribe('auth.authResponseChange', function (response) {
       // Here we specify what we do with the response anytime this event occurs.
       if (response.status === 'connected') {
-        document.getElementById('closeModal').click();
+        $('#authModal').modal('hide');
       } else if (response.status === 'not_authorized') {
-        $('#myModal').modal('show');
+        $('#authModal').modal('show');
       } else {
-        $('#myModal').modal('show');
+        $('#authModal').modal('show');
       }
     });
   };
@@ -88,11 +88,10 @@
     });
   }
   </script>
-  <div class="modal fade" id="myModal" data-backdrop="static">
+  <div class="modal fade" id="authModal" data-backdrop="static">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" id="closeModal" class="close" data-dismiss="modal" aria-hidden="true" style="visibility:hidden">&times;</button>
           <h2 class="modal-title" style="text-align: center">Facebook Authentication</h2>
         </div>
         <div class="modal-body">
@@ -110,7 +109,7 @@
       <input id="fbFriendForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; height: 45px;" onkeypress="if(event.keyCode == 13)scrapeFriends()">
       <button id="fbScrapeButton" type="button" class="btn btn-primary btn-lg active" style="margin-top: 10px;" onclick="scrapeFriends()">Scrape</button>
       <br><br>
-      <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="small" data-auto-logout-link="true" scope="basic_info, read_friendlists,"></fb:login-button></div>
+      <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="small" data-auto-logout-link="true" scope="basic_info, read_friendlists"></fb:login-button></div>
     </div>
     <div class="footer">
       <p style="text-align:center">Hastily hacked together in Rochester, NY. Sorry about the bug infestation.</p>
