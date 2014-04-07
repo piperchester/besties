@@ -109,6 +109,8 @@
       <p class="lead">Who are your closest friends on Facebook?</p>
       <input id="fbFriendForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; height: 45px;" onkeypress="if(event.keyCode == 13)scrapeFriends()">
       <button id="fbScrapeButton" type="button" class="btn btn-primary btn-lg active" style="margin-top: 10px;" onclick="scrapeFriends()">Scrape</button>
+      <br><br>
+      <div style="width: 50%; text-align:center; margin: 0 auto;"><fb:login-button size="small" data-auto-logout-link="true" scope="basic_info, read_friendlists,"></fb:login-button></div>
     </div>
     <div class="footer">
       <p style="text-align:center">Hastily hacked together in Rochester, NY. Sorry about the bug infestation.</p>
