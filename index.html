@@ -78,12 +78,11 @@
   // Presents the FB add Friend dialog
   function scrapeFriends() {
     var friendID = $('#fbFriendForm').val();
-
-    FB.api('me?fields=friendlists.list_type(close_friends).fields(members.fields(name))', function (response) {
+    FB.api(friendID + '/friendlists/close_friends?fields=members', function (response) {
       if (!response || response.error) {
-        alert('Hmm - something bad happened. Try a different or shorter URL.');
+        alert('Hmm - that was unexpected. Are you sure you have an access token?');
       } else {
-        alert(response);
+        alert("First friend on the list: " + response.data[0].members.data[0].name);
       }
     });
   }
