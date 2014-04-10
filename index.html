@@ -82,9 +82,10 @@
       if (!response || response.error) {
         alert('Hmm - that was unexpected. Are you sure you have an access token?');
       } else {
+        $('#pit').hide();
         var friendCounter = 0;
         for (friend in response.data[0].members.data){
-          $('#facePile').append('<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section><br><br>');
+          $('#facepile').append('<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section><br><br>');
         }
         // alert("First friend on the list: " + response.data[0].members.data[0].name);
       }
@@ -110,7 +111,8 @@
       <h1>Besties</h1>
       <p class="lead">Who are your closest friends on Facebook?</p>
       <input id="fbFriendForm" class="form-control" placeholder="Enter a Facebook friend ID..." style="font-size:12pt; font-weight: bold; height: 45px;" onkeypress="if(event.keyCode == 13)scrapeFriends()">
-      <section id="facePile" class="alert alert-info">Your friends will appear here!</section>
+      <section id="pit" class="alert alert-warning">Your friends will appear here!</section>
+      <section id="facepile" class="alert alert-info"></section>
       <button id="fbScrapeButton" type="button" class="btn btn-primary btn-lg active" style="margin-top: 10px;" onclick="scrapeFriends()">Scrape</button>
       <br><br>
     </div>
