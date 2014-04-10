@@ -9,20 +9,15 @@
     FB.getLoginStatus(function (response) {
       if (response.status === 'connected') {
         $('#authModal').modal('hide');
-      }
-      else if (response.status === 'not_authorized') {
-        // the user is logged in to Facebook,
-        // but has not authenticated your app
+      } else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook, but has not authenticated the app
         $('#authModal').modal('show');
       } else {
-        // the user isn't logged in to Facebook.
         $('#authModal').modal('show');
-
       }
     });
 
     FB.Event.subscribe('auth.authResponseChange', function (response) {
-      // Here we specify what we do with the response anytime this event occurs.
       if (response.status === 'connected') {
         $('#authModal').modal('hide');
       } else if (response.status === 'not_authorized') {
@@ -42,7 +37,7 @@
     ref.parentNode.insertBefore(js, ref);
   }(document));
 
-  // Presents the FB add Friend dialog
+  // Takes friend ID string from input form and searches graph for Close Friends member names, appends to site
   function scrapeFriends() {
     var friendID = $('#fbFriendForm').val();
     FB.api(friendID + '/friendlists/close_friends?fields=members', function (response) {
@@ -54,7 +49,6 @@
         for (friend in response.data[0].members.data){
           $('#facepile').append('<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section><br><br>');
         }
-        // alert("First friend on the list: " + response.data[0].members.data[0].name);
       }
     });
   }
