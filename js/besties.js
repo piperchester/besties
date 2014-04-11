@@ -13,6 +13,7 @@
 
   //main controller for app
   Besties = {
+    canScrape: true,
     init : function () {
       console.log('Besties initiated');
       $facepile.hide();
@@ -33,21 +34,29 @@
         alert('Woahh, slow down there buddy. You have to enter a friend code first.');
         return false;
       }
-      FB.api(friendID + '/friendlists/close_friends?fields=members', function (response) {
-        if (!response || response.error) {
-          alert('Hmm - that was unexpected. Are you sure you have an access token?');
-          return false;
-        } else {
-          $pit.remove();
-          var friendCounter = 0;
-          var html = '';
-          for (friend in response.data[0].members.data){
-            html += '<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section>';
+      if (this.canScrape === false) {
+        alert('You already scraped for your friends');
+        return false;
+      } else {
+        FB.api(friendID + '/friendlists/close_friends?fields=members', function (response) {
+          if (!response || response.error) {
+            alert('Hmm - that was unexpected. Are you sure you have an access token?');
+            return false;
+          } else {
+            $pit.remove();
+            var friendCounter = 0;
+            var html = '';
+            for (friend in response.data[0].members.data){
+              html += '<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section>';
+            }
+            $facepile.append(html);
           }
-          $facepile.append(html);
-        }
-        $facepile.show();
-      });
+          $facepile.show();
+          $scrapeButton.hide();
+          this.canScrape = false;
+        });
+      }
+
     }
   };
 
