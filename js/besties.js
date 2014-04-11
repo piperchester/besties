@@ -1,3 +1,5 @@
+  $('#facepile').hide();
+
   window.fbAsyncInit = function () {
     FB.init({
       appId: '1465893096973391',
@@ -44,11 +46,13 @@
       if (!response || response.error) {
         alert('Hmm - that was unexpected. Are you sure you have an access token?');
       } else {
-        $('#pit').hide();
+        $('#pit').remove();
         var friendCounter = 0;
         for (friend in response.data[0].members.data){
           $('#facepile').append('<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section><br><br>');
         }
       }
+
+      $('#facepile').show();
     });
   }
