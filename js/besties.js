@@ -6,7 +6,8 @@
       $authModal = $doc.find('#authModal'),
       $fbFriendForm = $doc.find('#fbFriendForm'),
       $scrapeButton = $doc.find('#fbScrapeButton'),
-      $pit = $doc.find('#pit');
+      $pit = $doc.find('#pit'),
+      $userName = $('#userName');
 
   //globals
   var Besties, KeyHandler;
@@ -14,8 +15,10 @@
   //main controller for app
   Besties = {
     canScrape: true,
+    currentUser : null,
     init : function () {
       console.log('Besties initiated');
+      Besties.loadAPI(document);
       $facepile.hide();
       // PROTIP:
       // Within this init function, `this` is a reference to `window`, not Besties
@@ -26,6 +29,19 @@
     attachListeners : function () {
       $scrapeButton.on('click', this.scrapeFriends); // PROTIP: parenthesis is not needed
       $doc.on('keypress', KeyHandler.onKeyPress);
+    },
+    //populates user data
+    updateUserInfo : function () {
+      $userName.html(this.currentUser.name);
+      $fbFriendForm.val(this.currentUser.username);
+    },
+    //gets information about the current user
+    getCurrentUser : function () {
+      FB.api('/me', function (response) {
+        Besties.currentUser = response;
+        Besties.updateUserInfo();
+      }
+      );
     },
     // Takes friend ID string from input form and searches graph for Close Friends member names, appends to site
     scrapeFriends : function () {
@@ -56,7 +72,14 @@
           this.canScrape = false;
         });
       }
-
+    },
+    // Load the SDK asynchronously
+    loadAPI : function (d) {
+      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+      if (d.getElementById(id)) { return; }
+      js = d.createElement('script'); js.id = id; js.async = true;
+      js.src = "//connect.facebook.net/en_US/all.js";
+      ref.parentNode.insertBefore(js, ref);
     }
   };
 
@@ -85,6 +108,7 @@
     FB.getLoginStatus(function (response) {
       if (response.status === 'connected') {
         $authModal.modal('hide');
+        Besties.getCurrentUser();
       } else if (response.status === 'not_authorized') {
         // the user is logged in to Facebook, but has not authenticated the app
         $authModal.modal('show');
@@ -103,14 +127,5 @@
       }
     });
   };
-
-  // Load the SDK asynchronously
-  (function (d) {
-    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-    if (d.getElementById(id)) { return; }
-    js = d.createElement('script'); js.id = id; js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    ref.parentNode.insertBefore(js, ref);
-  }(document));
 
   window.onload = Besties.init;
