@@ -61,10 +61,13 @@
           } else {
             $pit.remove();
             var friendCounter = 0;
-            var html = '';
+            var html = '<ul id="friendList">\n';
             for (friend in response.data[0].members.data){
-              html += '<section classs="alert alert-info">' + response.data[0].members.data[friendCounter++].name + '</section>';
+              html += '<li class="friend">\n';
+              html += '<h3 class="friend-name">'+response.data[0].members.data[friendCounter++].name+'</h3>';
+              html += '\n</li>';
             }
+            html += '</ul>'
             $facepile.append(html);
           }
           $facepile.show();
