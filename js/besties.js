@@ -77,6 +77,18 @@
         });
       }
     },
+    // Handles reponse for sign and and account auth
+    userSignIn : function (response) {
+      if (response.status === 'connected') {
+        $authModal.modal('hide');
+        Besties.getCurrentUser();
+      } else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook, but has not authenticated the app
+        $authModal.modal('show');
+      } else {
+        $authModal.modal('show');
+      }
+    },
     // Load the SDK asynchronously
     loadAPI : function (d) {
       var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
@@ -109,28 +121,9 @@
       xfbml: true  // parse XFBML
     });
 
-    FB.getLoginStatus(function (response) {
-      if (response.status === 'connected') {
-        $authModal.modal('hide');
-        Besties.getCurrentUser();
-      } else if (response.status === 'not_authorized') {
-        // the user is logged in to Facebook, but has not authenticated the app
-        $authModal.modal('show');
-      } else {
-        $authModal.modal('show');
-      }
-    });
+    FB.getLoginStatus(Besties.userSignIn);
 
-    FB.Event.subscribe('auth.authResponseChange', function (response) {
-      if (response.status === 'connected') {
-        $authModal.modal('hide');
-        Besties.getCurrentUser();
-      } else if (response.status === 'not_authorized') {
-        $authModal.modal('show');
-      } else {
-        $authModal.modal('show');
-      }
-    });
+    FB.Event.subscribe('auth.authResponseChange', Besties.userSignIn);
   };
 
   window.onload = Besties.init;
