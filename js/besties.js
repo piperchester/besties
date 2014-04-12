@@ -69,6 +69,7 @@
             }
             html += '</ul>'
             $facepile.append(html);
+            $userName.append('<span class="totalFriends">, you have '+(friendCounter + 1)+' close friends!</span>');
           }
           $facepile.show();
           $scrapeButton.hide();
