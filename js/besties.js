@@ -124,6 +124,7 @@
     FB.Event.subscribe('auth.authResponseChange', function (response) {
       if (response.status === 'connected') {
         $authModal.modal('hide');
+        Besties.getCurrentUser();
       } else if (response.status === 'not_authorized') {
         $authModal.modal('show');
       } else {
