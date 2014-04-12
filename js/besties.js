@@ -69,7 +69,7 @@
           }
           $facepile.show();
           $scrapeButton.hide();
-          this.canScrape = false;
+          Besties.canScrape = false;
         });
       }
     },
