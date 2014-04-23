@@ -2,3 +2,14 @@
   list-style: none;
   padding: 0;
 }
+
+.friend-name {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.friend-name:hover {
+  cursor: pointer;
+  color: white;
+  background-color: #29A8DA;
+}
