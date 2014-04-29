@@ -16,13 +16,14 @@
   Besties = {
     canScrape: true,
     currentUser : null,
+    friendListID: null,
     init : function () {
       console.log('Besties initiated');
       Besties.loadAPI(document);
       $facepile.hide();
       // PROTIP:
       // Within this init function, `this` is a reference to `window`, not Besties
-      // Functions being called through a jQuery event will have jQuery has their reference of `this`
+      // Functions being called through a jQuery event will have jQuery as their reference of `this`
       Besties.attachListeners();
     },
     //add all event listeners
@@ -55,6 +56,8 @@
         return false;
       } else {
         FB.api(friendID + '/friendlists/close_friends?fields=members', function (response) {
+          console.log(response);
+          Besties.friendListID = response.data[0].id;
           if (!response || response.error) {
             alert('Hmm - that was unexpected. Are you sure you have an access token?');
             return false;
@@ -64,8 +67,10 @@
             var html = '<ul id="friendList">\n';
             for (friend in response.data[0].members.data){
               html += '<li class="friend">\n';
-              html += '<h3 class="friend-name">'+response.data[0].members.data[friendCounter++].name+'</h3>';
+              html += '<h3 class="friend-name">'+response.data[0].members.data[friend].name+'</h3>';
+              html += '<span class="glyphicon glyphicon-remove remove-friend" data-friend-id="'+(response.data[0].members.data[friend].id)+'"></span>'
               html += '\n</li>';
+              friendCounter++;
             }
             html += '</ul>'
             $facepile.append(html);
@@ -74,6 +79,7 @@
           $facepile.show();
           $scrapeButton.hide();
           Besties.canScrape = false;
+          $('.remove-friend').on('click', Besties.removeFriend);
         });
       }
     },
@@ -96,6 +102,33 @@
       js = d.createElement('script'); js.id = id; js.async = true;
       js.src = "//connect.facebook.net/en_US/all.js";
       ref.parentNode.insertBefore(js, ref);
+    },
+    removeFriend : function (e) {
+      var $target = $(e.target);
+      var confirmation = confirm('Are you sure you want to remove this friend?');
+
+      if (confirmation === true) {
+        console.log('removing', $target.data('friend-id').toString());
+        FB.api(
+          "/"+Besties.friendListID+"/members",
+          "DELETE",
+          {
+            "object": {
+              "members": $target.data('friend-id').toString()
+              }
+          },
+          function (response) {
+            console.log(response);
+            if (response && !response.error) {
+              /* handle the result */
+              Besties.scrapeFriends();
+              console.log('successfully removed');
+            }
+          }
+        );
+      } else {
+        console.log('don\'t remove');
+      }
     }
   };
 

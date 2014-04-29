@@ -3,13 +3,29 @@
   padding: 0;
 }
 
-.friend-name {
-  padding: 5px;
+.friend {
   border-radius: 5px;
-}
-
-.friend-name:hover {
-  cursor: pointer;
+  padding: 5px 0;
+  position: relative;
+}.friend:hover {
   color: white;
   background-color: #29A8DA;
+}.friend:hover .remove-friend {
+  display: initial;
+}
+
+.friend-name {
+  display: inline-block;
+  margin: 0;
+}
+
+.remove-friend {
+  color: #104F68;
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}.remove-friend:hover {
+  color: #FFF;
 }
