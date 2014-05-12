@@ -1,4 +1,4 @@
 besties
 =======
 
-A web app to display a Facebook user's closest friends.
+An experiment showcasing some of the simplicity of the Facebook Graph API v1.0. 
