@@ -6,6 +6,7 @@
       $authModal = $doc.find('#authModal'),
       $fbFriendForm = $doc.find('#fbFriendForm'),
       $scrapeButton = $doc.find('#fbScrapeButton'),
+	  $loadingSVG = $doc.find('#loading'),
       $pit = $doc.find('#pit'),
       $userName = $('#userName');
 
@@ -20,6 +21,7 @@
       console.log('Besties initiated');
       Besties.loadAPI(document);
       $facepile.hide();
+	  $loadingSVG.hide();
       // PROTIP:
       // Within this init function, `this` is a reference to `window`, not Besties
       // Functions being called through a jQuery event will have jQuery has their reference of `this`
@@ -60,6 +62,7 @@
             return false;
           } else {
             $pit.remove();
+			$loadingSVG.hide();
             var friendCounter = 0;
             var html = '<ul id="friendList">\n';
             for (friend in response.data[0].members.data){
@@ -72,6 +75,7 @@
             $userName.append('<span class="totalFriends">, you have '+(friendCounter)+' close friends!</span>');
           }
           $facepile.show();
+		  $loadingSVG.show();
           $scrapeButton.hide();
           Besties.canScrape = false;
         });
