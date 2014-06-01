@@ -21,7 +21,6 @@
       console.log('Besties initiated');
       Besties.loadAPI(document);
       $facepile.hide();
-	  $loadingSVG.hide();
       // PROTIP:
       // Within this init function, `this` is a reference to `window`, not Besties
       // Functions being called through a jQuery event will have jQuery has their reference of `this`
@@ -29,11 +28,13 @@
     },
     //add all event listeners
     attachListeners : function () {
+	  $loadingSVG.show();
       $scrapeButton.on('click', this.scrapeFriends); // PROTIP: parenthesis is not needed
       $doc.on('keypress', KeyHandler.onKeyPress);
     },
     //populates user data
     updateUserInfo : function () {
+	  $loadingSVG.hide();
       $userName.html(this.currentUser.name);
       $fbFriendForm.val(this.currentUser.username);
     },
