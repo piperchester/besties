@@ -34,7 +34,7 @@
     },
     //populates user data
     updateUserInfo : function () {
-	  $loadingSVG.hide();
+	  $loadingSVG.remove();
       $userName.html(this.currentUser.name);
       $fbFriendForm.val(this.currentUser.username);
     },
@@ -63,7 +63,6 @@
             return false;
           } else {
             $pit.remove();
-			$loadingSVG.hide();
             var friendCounter = 0;
             var html = '<ul id="friendList">\n';
             for (friend in response.data[0].members.data){
@@ -76,7 +75,6 @@
             $userName.append('<span class="totalFriends">, you have '+(friendCounter)+' close friends!</span>');
           }
           $facepile.show();
-		  $loadingSVG.show();
           $scrapeButton.hide();
           Besties.canScrape = false;
         });
